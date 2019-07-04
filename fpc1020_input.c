@@ -8,18 +8,12 @@
  */
 
 #define DEBUG
-#define CONFIG_OF
 
 #include <linux/input.h>
 #include <linux/delay.h>
 
-#ifndef CONFIG_OF
-#include <linux/spi/fpc1020_common.h>
-#include <linux/spi/fpc1020_input.h>
-#else
 #include "fpc1020_common.h"
 #include "fpc1020_input.h"
-#endif
 
 
 /* -------------------------------------------------------------------- */

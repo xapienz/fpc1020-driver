@@ -21,13 +21,8 @@
 #include <linux/wait.h>
 #include <linux/version.h>
 
-#ifndef CONFIG_OF
-#include <linux/spi/fpc1020.h>
-#include <linux/spi/fpc1020_regs.h>
-#else
 #include "fpc1020.h"
 #include "fpc1020_regs.h"
-#endif
 
 
 /* -------------------------------------------------------------------- */

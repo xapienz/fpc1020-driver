@@ -8,7 +8,6 @@
  */
 
 #define DEBUG
-#define CONFIG_OF
 
 #include <linux/init.h>
 #include <linux/module.h>
@@ -25,22 +24,16 @@
 #include <linux/poll.h>
 #include <linux/types.h>
 
-#ifndef CONFIG_OF
-#include <linux/spi/fpc1020.h>
-#include <linux/spi/fpc1020_common.h>
-#include <linux/spi/fpc1020_regs.h>
-#include <linux/spi/fpc1020_input.h>
-#include <linux/spi/fpc1020_capture.h>
-#include <linux/spi/fpc1020_regulator.h>
-#else
+#ifdef CONFIG_OF
 #include <linux/of.h>
+#endif
+
 #include "fpc1020.h"
 #include "fpc1020_common.h"
 #include "fpc1020_regs.h"
 #include "fpc1020_input.h"
 #include "fpc1020_capture.h"
 #include "fpc1020_regulator.h"
-#endif
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Fingerprint Cards AB <tech@fingerprints.com>");

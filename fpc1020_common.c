@@ -8,22 +8,14 @@
  */
 
 #define DEBUG
-#define CONFIG_OF
 
 #include <linux/gpio.h>
 #include <linux/interrupt.h>
 
-#ifndef CONFIG_OF
-#include <linux/spi/fpc1020_common.h>
-#include <linux/spi/fpc1020_regs.h>
-#include <linux/spi/fpc1020_capture.h>
-#include <linux/spi/fpc1020_regulator.h>
-#else
 #include "fpc1020_common.h"
 #include "fpc1020_regs.h"
 #include "fpc1020_capture.h"
 #include "fpc1020_regulator.h"
-#endif
 
 #if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
 	const bool target_little_endian = true;

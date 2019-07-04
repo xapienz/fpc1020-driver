@@ -8,23 +8,18 @@
  */
 
 #define DEBUG
-#define CONFIG_OF
 
 #include <linux/compiler.h>	/* "__must_check", used by regulator API*/
 #include <linux/types.h>	/* "bool", used by regulator API	*/
 #include <linux/regulator/consumer.h>
 
-#ifndef CONFIG_OF
-#include <linux/spi/fpc1020.h>
-#include <linux/spi/fpc1020_common.h>
-#include <linux/spi/fpc1020_regulator.h>
-#else
+#ifdef CONFIG_OF
 #include <linux/of.h>
+#endif
+
 #include "fpc1020.h"
 #include "fpc1020_common.h"
 #include "fpc1020_regulator.h"
-#endif
-
 
 /* -------------------------------------------------------------------- */
 int fpc1020_regulator_configure(fpc1020_data_t *fpc1020)
