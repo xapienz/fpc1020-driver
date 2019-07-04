@@ -8,6 +8,7 @@
  */
 
 #define DEBUG
+#define CONFIG_OF
 
 #include <linux/gpio.h>
 #include <linux/interrupt.h>

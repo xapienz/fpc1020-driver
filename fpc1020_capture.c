@@ -8,6 +8,7 @@
  */
 
 #define DEBUG
+#define CONFIG_OF
 
 #include <linux/input.h>
 #include <linux/delay.h>
@@ -155,7 +156,7 @@ bool fpc1020_capture_check_ready(fpc1020_data_t *fpc1020)
 /* -------------------------------------------------------------------- */
 int fpc1020_capture_task(fpc1020_data_t *fpc1020)
 {
-	struct timespec ts_t1, ts_t2, ts_t3, ts_delta;
+	struct timespec64 ts_t1, ts_t2, ts_t3, ts_delta;
 	int time_settings_us[FPC1020_BUFFER_MAX_IMAGES];
 	int time_capture_us[FPC1020_BUFFER_MAX_IMAGES];
 	int time_capture_sum_us;
@@ -309,7 +310,7 @@ int fpc1020_capture_task(fpc1020_data_t *fpc1020)
 
 	while (capture_count && (error >= 0))
 	{
-		getnstimeofday(&ts_t1);
+		ktime_get_real_ts64(&ts_t1);
 
 		fpc1020->capture.state = FPC1020_CAPTURE_STATE_ACQUIRE;
 
@@ -323,7 +324,7 @@ int fpc1020_capture_task(fpc1020_data_t *fpc1020)
 		if (error < 0)
 			goto out_error;
 
-		getnstimeofday(&ts_t2);
+		ktime_get_real_ts64(&ts_t2);
 
 		error = fpc1020_cmd(fpc1020,
 				FPC1020_CMD_CAPTURE_IMAGE,
@@ -346,14 +347,14 @@ int fpc1020_capture_task(fpc1020_data_t *fpc1020)
 							(int)image_byte_size : 0;
 		fpc1020->capture.last_error = error;
 
-		getnstimeofday(&ts_t3);
+		ktime_get_real_ts64(&ts_t3);
 
-		ts_delta = timespec_sub(ts_t2, ts_t1);
+		ts_delta = timespec64_sub(ts_t2, ts_t1);
 		time_settings_us[current_capture] =
 			ts_delta.tv_sec * USEC_PER_SEC +
 			(ts_delta.tv_nsec / NSEC_PER_USEC);
 
-		ts_delta = timespec_sub(ts_t3, ts_t2);
+		ts_delta = timespec64_sub(ts_t3, ts_t2);
 		time_capture_us[current_capture] =
 			ts_delta.tv_sec * USEC_PER_SEC +
 			(ts_delta.tv_nsec / NSEC_PER_USEC);

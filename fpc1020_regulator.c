@@ -8,6 +8,7 @@
  */
 
 #define DEBUG
+#define CONFIG_OF
 
 #include <linux/compiler.h>	/* "__must_check", used by regulator API*/
 #include <linux/types.h>	/* "bool", used by regulator API	*/
@@ -135,7 +136,7 @@ int fpc1020_regulator_set(fpc1020_data_t *fpc1020, bool enable)
 	if (enable) {
 		dev_dbg(&fpc1020->spi->dev, "%s on\n", __func__);
 
-		regulator_set_optimum_mode(fpc1020->vcc_spi,
+		regulator_set_load(fpc1020->vcc_spi,
 					SUPPLY_SPI_REQ_CURRENT);
 
 		error = (regulator_is_enabled(fpc1020->vcc_spi) == 0) ?
@@ -148,7 +149,7 @@ int fpc1020_regulator_set(fpc1020_data_t *fpc1020, bool enable)
 			goto out_err;
 		}
 
-		regulator_set_optimum_mode(fpc1020->vdd_io,
+		regulator_set_load(fpc1020->vdd_io,
 					SUPPLY_IO_REQ_CURRENT);
 
 		error = (regulator_is_enabled(fpc1020->vdd_io) == 0) ?
@@ -161,7 +162,7 @@ int fpc1020_regulator_set(fpc1020_data_t *fpc1020, bool enable)
 			goto out_err;
 		}
 
-		regulator_set_optimum_mode(fpc1020->vdd_ana,
+		regulator_set_load(fpc1020->vdd_ana,
 					 SUPPLY_ANA_REQ_CURRENT);
 
 		error = (regulator_is_enabled(fpc1020->vdd_ana) == 0) ?

@@ -8,6 +8,7 @@
  */
 
 #define DEBUG
+#define CONFIG_OF
 
 #include <linux/init.h>
 #include <linux/module.h>
@@ -233,7 +234,7 @@ static const struct file_operations fpc1020_fops = {
 struct fpc1020_attribute fpc1020_attr_##_field =			\
 					FPC1020_ATTR(_grp, _field, (_mode))
 
-#define DEVFS_SETUP_MODE (S_IWUSR|S_IWGRP|S_IWOTH|S_IRUSR|S_IRGRP|S_IROTH)
+#define DEVFS_SETUP_MODE (S_IWUSR|S_IWGRP|S_IRUSR|S_IRGRP|S_IROTH)
 
 static FPC1020_DEV_ATTR(setup, adc_gain,		DEVFS_SETUP_MODE);
 static FPC1020_DEV_ATTR(setup, adc_shift,		DEVFS_SETUP_MODE);
@@ -266,7 +267,7 @@ static const struct attribute_group fpc1020_setup_attr_group = {
 };
 
 #define DEVFS_DIAG_MODE_RO (S_IRUSR|S_IRGRP|S_IROTH)
-#define DEVFS_DIAG_MODE_RW (S_IWUSR|S_IWGRP|S_IWOTH|S_IRUSR|S_IRGRP|S_IROTH)
+#define DEVFS_DIAG_MODE_RW (S_IWUSR|S_IWGRP|S_IRUSR|S_IRGRP|S_IROTH)
 
 static FPC1020_DEV_ATTR(diag, chip_id,		DEVFS_DIAG_MODE_RO);
 static FPC1020_DEV_ATTR(diag, selftest,		DEVFS_DIAG_MODE_RO);

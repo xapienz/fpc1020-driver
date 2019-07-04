@@ -8,6 +8,7 @@
  */
 
 #define DEBUG
+#define CONFIG_OF
 
 #include <linux/input.h>
 #include <linux/delay.h>
